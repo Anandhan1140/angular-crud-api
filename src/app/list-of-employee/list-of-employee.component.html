@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+
+    <h1 style = "text-align: center; margin-left: -134px;">
+        Employee Details
+    </h1>
+    <p *ngIf="!employee"><em>Loading...</em></p>
+    
+    <div class="container mx-auto">
+        <table class="table table-striped" style="  margin-left: -167px;" *ngIf="employee">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                    <th>Gender</th>
+                    <th>Language</th>
+                   
+                    <th>countryName</th>
+                    <th>stateName</th>
+                    <th>districtName</th>
+                    <th>Download Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of employee">
+                    <td>{{emp.employeeId}}</td>
+                    <td>{{emp.firstName}}</td>
+                    <td>{{emp.lastName}}</td>
+                    <td>{{emp.salary}}</td>
+                    <td>{{emp.department}}</td> 
+                    <td>{{emp.gender}}</td>    
+                    <td>{{emp.language}}</td>         
+                    <td>{{emp.countryName}}</td>    
+                    <td>{{emp.stateName}}</td>
+                    <td>{{emp.districtName}}</td>
+                    <td>                        
+                        <button type="button"  class="btn btn-danger" id="image_download" (click)="DownnloadImage(emp.employeeId)">Download Image</button>
+                    </td>
+                    <td>
+                        <a  class="btn btn-primary" style=" width: 60px;"  [routerLink]="['/edit-employee',emp.employeeId]">Edit</a>
+                        <button type="button" class="btn btn-danger" (click)="confirmDelete(emp.employeeId)">Delete</button>
+                    </td>
+                   
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body> 
+</html>

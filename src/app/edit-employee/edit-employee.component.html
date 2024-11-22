@@ -1,0 +1,141 @@
+
+<form (ngSubmit)="UpdateEmployee(employee[0].employeeId)" #employeeForm="ngForm" name="editform">
+    <div class="modal-body" *ngIf="employee">
+      <h2 class="text-center mb-4">Update Employee</h2>      
+
+
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label" for="FirstName">First Name</label>
+            <input class="form-control" id="FirstName" placeholder="Enter Name" type="text" [(ngModel)]="employee[0].firstName" name="firstName" required />
+          </div>
+        </div>
+
+        
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label" for="LastName">Last Name</label>
+            <input class="form-control" id="LastName" placeholder="Enter Name" type="text" [(ngModel)]="employee[0].lastName" name="lastName" required />
+          </div>
+        </div>
+
+  
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label" for="Salary">Salary</label>
+            <input class="form-control" id="Salary" placeholder="Enter Salary" type="number" [(ngModel)]="employee[0].salary" name="salary" required />
+          </div>
+        </div>
+
+  
+        <div class="col-md-6">
+          <div class="form-group" >
+            <label class="control-label" for="Department">Department</label>
+            <select  name="department" class="form-select" aria-label="Default select example" [(ngModel)]="selectDepartment" (ngModelChange)="onchangedepartment($event)"required>
+              <option [ngValue]="null">Select a department</option>          
+              <option *ngFor="let department of departmentList"  [ngValue]="department.departmentId"  [selected]="department.id === 'selectDepartment'" >
+                {{ department.departmentName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+
+        <div style="margin-top: 10px">
+            <div class="form-group" *ngIf="gender.length">
+                <label for="Gender" class="control-label">Gender</label>
+                <div style="margin-left: 70px;" class="form-check-inline" id="gender1">
+                    <div *ngFor="let g of gender"  class="form-check form-check-inline">
+                        <input type="radio"
+                                [id]="'gender_'+g.id"
+                                [value]="g.id"
+                                [(ngModel)]="selectedgender"
+                                (ngModelChange)="choose($event)" 
+                                [checked]="selectedgender === g.id"
+                                name="gender"
+                        >
+                        <label [for]="'gender_'+g.id">{{g.name}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="margin-top:10px">
+            <div class="form-group">
+              <label for="Language" class="control-label">Language</label>
+              <div class="form-check-inline" style="margin-left: 50px;" id="LanguageList">
+                <div *ngFor="let l of languageList; let i=index" class="form-check form-check-inline">
+                  <input type="checkbox"
+                         name="Language_{{i}}"
+                         [id]="'language_' + l.languageID"                   
+                         [ngModel]="isSelected(l.languageID)"
+                         (ngModelChange)="onChange(l.languageID, $event)" > 
+                  <label [for]="'language_'+ l.languageID">{{l.languageName}}</label>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        
+        <div class="row">
+
+             <div class="col-md-4" style="margin-top: 10px;">
+                <div class="form-group">
+                    <label for="country">country</label>
+                    <select name="country" class="form-select" aria-label="Default select example" [(ngModel)]="selectedCountry" (ngModelChange)="OnchangeCountry($event)">
+                        <option value="">select a country</option>
+                        <option [ngValue]="c.countryId" *ngFor="let c of countryList"> {{c.countryName}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4" style="margin-top: 10px;">
+                <div class="form-group" >
+                    <label for="State">State</label>
+                    <select name="State" id="State" class="form-select" aria-label="Default select example" [(ngModel)]="selectedState" (ngModelChange)="OnchangeState($event)">
+                      <option value="">select a country</option>
+                        <option [ngValue]="s.stateId" *ngFor="let s of load_state_by_country_id">{{s.stateName}}</option>
+                    </select>
+                </div>
+            </div>
+
+             <div class="col-md-4" style="margin-top: 10px;">
+                <div class="form-group">
+                    <label for="District">District</label>
+                    <select name="District" id="District" [(ngModel)]="selectedDistrict" class="form-select" aria-label="Default select example" >
+                        <option value="">select a District</option>
+                        <option [ngValue]="d.districtId" *ngFor="let d of load_District_by_state_id">{{d.districtName}}</option>                          
+                    </select>
+                </div> 
+            </div>  
+        </div>   
+
+
+
+        <div class="row">
+          <div class="col-md-6" style="margin-top: 10px;">
+            <div class="form-group">
+              <label for="ImageFile" class="control-label">Image</label>
+              <input type="file" id="ImageFile" class="form-control"  [(ngModel)]="selectedImage" (change)="onfilechange($event)" name="Image">
+              <img *ngIf="selectedImage" [src]='selectedImage' alt="Image preview" id="previousImage" class="rounded-square" height="50" width="75" style="border:1px solid black;" />       
+            
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" id="btnAdd" [disabled]="!employeeForm.form.valid">Update</button>
+      <button type="button" class="btn btn-primary ml-2" [routerLink]="['']">Close</button>
+    </div>
+  </form>
+  
